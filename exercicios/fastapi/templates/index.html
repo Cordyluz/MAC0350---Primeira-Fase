@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block conteudo %}
+    <h2>Criar Usuário</h2>
+    <input type="text" id="nome" placeholder="Nome">
+    <input type="password" id="senha" placeholder="Senha">
+    <input type="text" id="bio" placeholder="Sua Bio">
+    <button type="button" onclick="registrar()">Cadastrar</button>
+    <p><a href="/login" style="color: #ff690a;">Já tenho conta</a></p>
+
+    <script>
+        async function registrar() {
+            const dados = {
+                nome: document.getElementById('nome').value,
+                senha: document.getElementById('senha').value,
+                bio: document.getElementById('bio').value
+            };
+            // Request POST com JSON via JavaScript
+            const resp = await fetch('/users', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(dados)
+            });
+            if (resp.ok) { 
+                alert("Criado! Vá para o login.");
+                window.location.href = "/login";
+            }
+        }
+    </script>
+{% endblock %}

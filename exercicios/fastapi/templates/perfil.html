@@ -1,0 +1,8 @@
+{% extends "layout.html" %}
+{% block conteudo %}
+    <h1>Bem-vindo, {{ nome }}!</h1>
+    <p><strong>Bio:</strong> {{ bio }}</p>
+    <hr>
+    <p>Você está acessando uma rota protegida por Cookies.</p>
+    <button onclick="document.cookie='session_user=; Max-Age=0; path=/;'; window.location.href='/login'">Sair</button>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block conteudo %}
+    <h2>Acesse sua Conta</h2>
+    <input type="text" id="login-nome" placeholder="Nome">
+    <input type="password" id="login-senha" placeholder="Senha">
+    <button type="button" onclick="fazerLogin()">Entrar</button>
+    <p><a href="/" style="color: #ff690a;">Criar nova conta</a></p>
+
+    <script>
+        async function fazerLogin() {
+            const dados = {
+                nome: document.getElementById('login-nome').value,
+                senha: document.getElementById('login-senha').value
+            };
+            
+            const resp = await fetch('/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(dados)
+            });
+
+            if (resp.ok) {
+          
+                window.location.href = "/home";
+            } else {
+                alert("Usuário ou senha inválidos!");
+            }
+        }
+    </script>
+{% endblock %}
