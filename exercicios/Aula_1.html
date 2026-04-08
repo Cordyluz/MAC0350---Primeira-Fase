@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login - Jupiterweb</title>
+    
+    <style>
+
+        body {
+            font-family: Arial;
+            margin: 0;
+        }
+
+
+        header {
+            
+            padding: 10px;
+            text-align: center;
+        }
+
+        img {
+            height: 50px; 
+        }
+
+
+        .container {
+            display: flex;
+            flex-direction: row; 
+        }
+
+        
+        .menu {
+            width: 25%; 
+            padding: 20px;
+            background: white; 
+        }
+
+        .conteudo {
+            width: 75%;
+            padding: 20px;
+        }
+
+    
+        form {
+            border: 1px solid black; 
+            padding: 20px;
+            width: 300px; 
+        }
+
+        input {
+            margin: 5px; 
+            width: 90%; 
+            border: 1px solid gray;
+        }
+
+       
+        a {
+            color: blue; 
+        }
+
+        a:hover {
+            color: orange; 
+        }
+
+        
+        footer {
+            text-align: center; 
+            border: 2px solid black;
+            padding: 10px;
+            font-size: 12px; 
+        }
+
+        
+        @media (orientation: portrait) {
+            .container {
+                flex-direction: column;
+            }
+            .menu {
+                width: 100%; 
+            }
+            .conteudo {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://uspdigital.usp.br/comumwebdev/imagens/cabecalho/usp-logo.png" alt="Logo">
+        <h2>Universidade de São Paulo</h2>
+    </header>
+    <div style="width: 100%; height: 14px; background-image: url('https://uspdigital.usp.br/comumwebdev/imagens/cabecalho/bg-headtop.gif'); margin-bottom: 5px; text-align: right; color: white; padding-top: 12px; padding-right: 3px; font-family: Verdana; font-size: 10px;">
+	
+</div>
+    <div class="container">
+        
+        <div class="menu">
+            <p><strong>Público</strong></p>
+            <ul>
+                <li><a href="https://uspdigital.usp.br">Calendário Escolar</a></li>
+                <li><a href="https://uspdigital.usp.br">Cursos de ingresso</a></li>
+                <li><a href="https://uspdigital.usp.br">Disciplina</a></li>
+                <li><a href="https://uspdigital.usp.br">Editais</a></li>
+                <li><a href="https://uspdigital.usp.br">Faqs</a></li>
+            </ul>
+        </div>
+
+        <div class="conteudo">
+            <h2>Login</h2>
+            <form action="#">
+                <p>Usuário:</p>
+                <input type="text" name="usuario">
+                
+                <p>Senha:</p>
+                <input type="password" name="senha">
+                
+                <input type="submit" value="Entrar">
+            </form>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Créditos | Fale conosco</p>
+        <p>1999-2026 - Superintendência de Tecnologia da Informação/USP</p>
+    </footer>
+
+</body>
+</html>

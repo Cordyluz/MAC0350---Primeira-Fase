@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Desafios de Casa - WebMAC</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .box { border: 1px solid white; padding: 20px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h3>Desafio 1: O Interruptor</h3>
+        <p id="texto-luz">A luz está APAGADA</p>
+        <button onclick="alternarLuz()">Interruptor</button>
+    </div>
+
+    <div class="box">
+        <h3>Desafio 2: O Multiplicador</h3>
+        <h1 id="valor_atual">2</h1>
+        <button onclick="dobrarValor()">Dobrar</button>
+    </div>
+
+    <script>
+
+        function alternarLuz() {
+            const texto = document.querySelector("#texto-luz");
+            
+            if (texto.innerHTML === "A luz está APAGADA") {
+                texto.innerHTML = "A luz está ACESA";
+            } else {
+                texto.innerHTML = "A luz está APAGADA";
+            }
+        }
+
+
+        let valor = 2;
+
+        function dobrarValor() {
+            const visor = document.querySelector("#valor_atual");
+            
+
+            valor = valor * 2;
+
+            visor.innerHTML = valor;
+
+            if (valor > 100) {
+                alert(`Cuidado, o número ${valor} está ficando muito grande!`);
+            }
+        }
+    </script>
+
+</body>
+</html>
