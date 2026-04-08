@@ -1,0 +1,15 @@
+<div id="gerenciador-curtidas">
+    <div id="contador-container">
+        {% include 'partials/contador.html' %}
+    </div>
+    
+    <div style="margin-top: 20px;">
+        <button hx-post="/curtir" hx-target="#contador-container">Curtir!</button>
+        
+        <button hx-delete="/curtir" 
+                hx-target="#contador-container" 
+                hx-confirm="Você tem certeza que deseja zerar as curtidas?">
+            Zerar Curtidas
+        </button>
+    </div>
+</div>

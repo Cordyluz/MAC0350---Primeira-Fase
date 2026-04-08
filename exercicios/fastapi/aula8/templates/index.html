@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>WebMAC - Aula 8</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <style>
+        .active { border-bottom: 3px solid #ff690a; font-weight: bold; }
+        nav button { margin: 10px; padding: 10px; cursor: pointer; background: none; border: none; color: white; }
+        body { background: #292827; color: white; font-family: sans-serif; text-align: center; }
+        #conteudo { margin-top: 50px; padding: 20px; border: 1px solid #444; }
+    </style>
+</head>
+<body hx-trigger="keyup[shiftKey&&altKey&&key=='P'] from:body" hx-get="/aba-jupiter" hx-target="#conteudo">
+    
+    <header>
+        <h1>Projeto WebMAC</h1>
+        <nav hx-target="#conteudo" hx-push-url="true">
+            <button hx-get="/aba-curtidas" hx-on::after-request="atualizarAtivo(this)">Curtidas</button>
+            <button hx-get="/aba-jupiter" hx-on::after-request="atualizarAtivo(this)">Júpiter</button>
+            <button hx-get="/aba-professor" hx-on::after-request="atualizarAtivo(this)">Professor</button>
+        </nav>
+    </header>
+
+    <main id="conteudo">
+        <p>Selecione uma aba acima.</p>
+    </main>
+
+    <script>
+        function atualizarAtivo(el) {
+            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+        }
+    </script>
+</body>
+</html>
