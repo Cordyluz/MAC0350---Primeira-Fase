@@ -24,13 +24,13 @@ body {
   min-height: 100vh;
 }
 
-/* Typography styles */
+
 h1, h2, h3 {
   color: var(--accent-color);
   margin-bottom: 0.5rem;
 }
 
-/* Utility layout */
+
 .container {
   display: flex;
   flex-direction: column;
@@ -49,7 +49,7 @@ h1, h2, h3 {
   }
 }
 
-/* Glassmorphism panel */
+
 .panel {
   background: var(--panel-bg);
   border: 1px solid var(--card-border);
@@ -58,7 +58,7 @@ h1, h2, h3 {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
-/* Forms */
+
 .form-group {
   margin-bottom: 1rem;
 }
@@ -109,7 +109,7 @@ h1, h2, h3 {
   background: #d83a3a;
 }
 
-/* Header */
+
 header {
   display: flex;
   justify-content: space-between;
@@ -119,7 +119,7 @@ header {
   border-bottom: 1px solid var(--card-border);
 }
 
-/* Main Game Area */
+
 .clicker-area {
   display: flex;
   flex-direction: column;
@@ -141,7 +141,7 @@ header {
   display: block;
 }
 
-/* Banana Button Component */
+
 .banana-btn {
   background: none;
   border: none;
@@ -156,7 +156,7 @@ header {
   transform: scale(0.9);
 }
 
-/* Shop Items */
+
 .shop-item {
   display: flex;
   justify-content: space-between;
@@ -194,7 +194,7 @@ header {
   color: #aaa;
 }
 
-/* Leaderboard */
+
 table.leaderboard {
   width: 100%;
   border-collapse: collapse;
@@ -217,7 +217,7 @@ table.leaderboard th {
   margin-top: 1rem;
 }
 
-/* Animations */
+
 @keyframes pop {
   0% { transform: scale(1); opacity: 1; }
   100% { transform: translateY(-50px) scale(1.5); opacity: 0; }
