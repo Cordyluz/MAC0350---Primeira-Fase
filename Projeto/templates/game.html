@@ -6,7 +6,7 @@
         
         <button class="banana-btn" onclick="clickBanana(event)">🍌</button>
         
-        <!-- Indicador visual dos macacos comprados -->
+        
         <div class="monkey-collection" style="font-size: 2rem; margin-top: 1rem; min-height: 4rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.2rem;">
             {% for u in upgrades %}
                 {% set qty = owned_upgrades.get(u.id, 0) %}
@@ -20,7 +20,7 @@
         <div style="color: var(--accent-color); margin-top: 2rem; font-weight: bold;">{{ message }}</div>
         {% endif %}
 
-        <!-- Auto Sync Form for HTMX -->
+       
         <form id="sync-form" hx-put="/player/{{ player.id }}/save" hx-trigger="submit" hx-swap="none" style="display: none;">
             <input type="number" id="sync-bananas-input" name="bananas_count" value="{{ player.bananas_count }}">
         </form>
@@ -97,7 +97,7 @@
                 if(tabName === 'boosts') buttons[1].classList.add('active');
                 localStorage.setItem('activeTab', tabName);
             }
-            // Retorna pra tab correta no reload via htmx
+            
             setTimeout(() => switchTab(localStorage.getItem('activeTab') || 'monkeys'), 10);
         </script>
 
@@ -109,7 +109,6 @@
     </div>
 </div>
 
-<!-- Initialize JS state upon HTMX swap -->
 <script>
     initGame({{ player.bananas_count }}, {{ bps }}, {{ click_power }});
 </script>
