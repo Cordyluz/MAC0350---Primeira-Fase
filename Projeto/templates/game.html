@@ -1,0 +1,115 @@
+<div class="game-container">
+    <div class="panel clicker-area" style="position: relative;">
+        <div class="banana-stats">🍌 Jogador: {{ player.username }}</div>
+        <div id="bananas-count">{{ player.bananas_count }}</div>
+        <div style="margin-bottom: 2rem;">Bananas Totais <br><small style="color: #aaa;">(+{{ bps }} por segundo)</small></div>
+        
+        <button class="banana-btn" onclick="clickBanana(event)">🍌</button>
+        
+        <!-- Indicador visual dos macacos comprados -->
+        <div class="monkey-collection" style="font-size: 2rem; margin-top: 1rem; min-height: 4rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.2rem;">
+            {% for u in upgrades %}
+                {% set qty = owned_upgrades.get(u.id, 0) %}
+                {% for _ in range(qty) %}
+                    {{ u.image_url }}
+                {% endfor %}
+            {% endfor %}
+        </div>
+
+        {% if message %}
+        <div style="color: var(--accent-color); margin-top: 2rem; font-weight: bold;">{{ message }}</div>
+        {% endif %}
+
+        <!-- Auto Sync Form for HTMX -->
+        <form id="sync-form" hx-put="/player/{{ player.id }}/save" hx-trigger="submit" hx-swap="none" style="display: none;">
+            <input type="number" id="sync-bananas-input" name="bananas_count" value="{{ player.bananas_count }}">
+        </form>
+    </div>
+
+    <div class="panel">
+        <h2>Loja de Macacos 🐒</h2>
+        <p style="margin-bottom: 1rem; color: #ccc;">Compre macacos para ganhar bananas automaticamente!</p>
+        
+        <div class="tabs" style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+            <button class="btn btn-tab active" onclick="switchTab('monkeys')" style="flex:1;">Macacos</button>
+            <button class="btn btn-tab" onclick="switchTab('boosts')" style="flex:1;">Upgrades</button>
+        </div>
+
+        <div id="tab-monkeys" class="shop-list">
+            {% for u in upgrades %}
+            {% if u.upgrade_type in ['monkey', 'click'] %}
+            {% set qty = owned_upgrades.get(u.id, 0) %}
+            {% set current_cost = (u.base_cost * (1.15 ** qty))|int %}
+            <div class="shop-item">
+                <div class="shop-item-info">
+                    <div class="shop-item-icon">{{ u.image_url }}</div>
+                    <div class="shop-item-details">
+                        <strong>{{ u.name }}</strong>
+                        {% if u.upgrade_type == "monkey" %}
+                            <span>+{{ u.bananas_per_second }} BPS | Possui: {{ qty }}</span>
+                        {% elif u.upgrade_type == "click" %}
+                            <span>+{{ u.boost_value }} por Clique | Possui: {{ qty }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <form hx-post="/player/{{ player.id }}/buy/{{ u.id }}" hx-target="#app-container" style="margin: 0; display:flex;">
+                    <input type="hidden" name="bananas_count" class="buy-hidden-input">
+                    <button type="submit" class="btn" style="padding: 0.5rem 1rem;" onclick="this.parentElement.querySelector('.buy-hidden-input').value = Math.floor(localBananas);">
+                        Comprar<br><small>{{ current_cost }} 🍌</small>
+                    </button>
+                </form>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+        <div id="tab-boosts" class="shop-list" style="display: none;">
+            {% for u in upgrades %}
+            {% if u.upgrade_type == 'boost' %}
+            {% set qty = owned_upgrades.get(u.id, 0) %}
+            {% set current_cost = (u.base_cost * (1.15 ** qty))|int %}
+            <div class="shop-item">
+                <div class="shop-item-info">
+                    <div class="shop-item-icon">{{ u.image_url }}</div>
+                    <div class="shop-item-details">
+                        <strong>{{ u.name }}</strong>
+                        <span>Alvo: {{ u.boost_target }} recebe +{{ u.boost_value }} BPS | Possui: {{ qty }}</span>
+                    </div>
+                </div>
+                <form hx-post="/player/{{ player.id }}/buy/{{ u.id }}" hx-target="#app-container" style="margin: 0; display:flex;">
+                    <input type="hidden" name="bananas_count" class="buy-hidden-input">
+                    <button type="submit" class="btn" style="padding: 0.5rem 1rem;" onclick="this.parentElement.querySelector('.buy-hidden-input').value = Math.floor(localBananas);">
+                        Comprar<br><small>{{ current_cost }} 🍌</small>
+                    </button>
+                </form>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        
+        <script>
+            function switchTab(tabName) {
+                document.getElementById('tab-monkeys').style.display = tabName === 'monkeys' ? 'block' : 'none';
+                document.getElementById('tab-boosts').style.display = tabName === 'boosts' ? 'block' : 'none';
+                const buttons = document.querySelectorAll('.btn-tab');
+                buttons.forEach(b => b.classList.remove('active'));
+                if(tabName === 'monkeys') buttons[0].classList.add('active');
+                if(tabName === 'boosts') buttons[1].classList.add('active');
+                localStorage.setItem('activeTab', tabName);
+            }
+            // Retorna pra tab correta no reload via htmx
+            setTimeout(() => switchTab(localStorage.getItem('activeTab') || 'monkeys'), 10);
+        </script>
+
+        <div style="margin-top: 4rem; border-top: 1px solid var(--card-border); padding-top: 1rem;">
+            <h4>Controles de Conta</h4>
+            <button hx-get="/" hx-target="body" class="btn" style="background: var(--card-border); color: white;">Trocar de Jogador</button>
+            <button hx-delete="/player/{{ player.id }}" hx-confirm="Tem certeza? Todo o progresso será perdido." class="btn btn-danger" style="margin-left: 0.5rem;">Excluir Conta</button>
+        </div>
+    </div>
+</div>
+
+<!-- Initialize JS state upon HTMX swap -->
+<script>
+    initGame({{ player.bananas_count }}, {{ bps }}, {{ click_power }});
+</script>

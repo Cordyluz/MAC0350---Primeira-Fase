@@ -1,0 +1,43 @@
+<div class="panel">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Leaderboard Global</h2>
+        <button hx-get="/" hx-target="body" class="btn">Voltar para Home</button>
+    </div>
+    
+    <table class="leaderboard">
+        <thead>
+            <tr>
+                <th>Jogador</th>
+                <th>Bananas Totais</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in players %}
+            <tr>
+                <td>{{ p.username }}</td>
+                <td>{{ p.bananas_count }} 🍌</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="2">Ainda não há jogadores suficientes.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        {% if has_prev %}
+        <button hx-get="/leaderboard?page={{ page - 1 }}" hx-target="#app-container" class="btn">Página Anterior</button>
+        {% else %}
+        <div></div>
+        {% endif %}
+        
+        <span>Página {{ page }}</span>
+        
+        {% if has_next %}
+        <button hx-get="/leaderboard?page={{ page + 1 }}" hx-target="#app-container" class="btn">Próxima Página</button>
+        {% else %}
+        <div></div>
+        {% endif %}
+    </div>
+</div>

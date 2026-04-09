@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="game-container">
+    <div class="panel">
+        <h1>Bem-vindo ao Jogo!</h1>
+        <p>Crie ou acesse seu perfil para começar a faturar umas bananas.</p>
+        
+        <!-- Registration Form (hx-post) -->
+        <form hx-post="/register" hx-target="#app-container" class="form-group" style="margin-top: 2rem;">
+            <label for="username">Nome de Usuário</label>
+            <input type="text" id="username" name="username" class="input-field" required placeholder="Ex: MacacoLouco">
+            <button type="submit" class="btn" style="margin-top: 1rem;">Jogar Agora</button>
+        </form>
+    </div>
+
+    <div class="panel">
+        <h2>Top 10 - Global</h2>
+        <table class="leaderboard">
+            <thead>
+                <tr>
+                    <th>Posição</th>
+                    <th>Jogador</th>
+                    <th>Bananas</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in players %}
+                <tr>
+                    <td>#{{ loop.index }}</td>
+                    <td>{{ p.username }}</td>
+                    <td>{{ p.bananas_count }} 🍌</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="3">Nenhum jogador registrado ainda.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <!-- Load fully paginated leaderboard using hx-get -->
+        <button hx-get="/leaderboard?page=1" hx-target="#app-container" class="btn" style="margin-top: 1rem;">Ver Placar Completo (Paginação)</button>
+    </div>
+</div>
+{% endblock %}
