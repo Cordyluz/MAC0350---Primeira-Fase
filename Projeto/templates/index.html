@@ -6,7 +6,7 @@
         <h1>Bem-vindo ao Jogo!</h1>
         <p>Crie ou acesse seu perfil para começar a faturar umas bananas.</p>
         
-        <!-- Registration Form (hx-post) -->
+        
         <form hx-post="/register" hx-target="#app-container" class="form-group" style="margin-top: 2rem;">
             <label for="username">Nome de Usuário</label>
             <input type="text" id="username" name="username" class="input-field" required placeholder="Ex: MacacoLouco">
@@ -39,7 +39,7 @@
             </tbody>
         </table>
         
-        <!-- Load fully paginated leaderboard using hx-get -->
+        
         <button hx-get="/leaderboard?page=1" hx-target="#app-container" class="btn" style="margin-top: 1rem;">Ver Placar Completo (Paginação)</button>
     </div>
 </div>
