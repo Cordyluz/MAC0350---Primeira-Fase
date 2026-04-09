@@ -67,4 +67,4 @@ Siga as instruções abaixo para rodar o app no ambiente de desenvolvimento:
 3. Abra a porta do Servidor no seu navegador (normalmente `http://localhost:8000`).
 
 ## Uso de AI
-Foi usado IA para consultas de sintaxe e documentação das bibliotecas utilizadas, revisão de erros e documentação do projeto.
+Foi usado IA para consultas de sintaxe e documentação das bibliotecas utilizadas, revisão de erros, sugestao de melhorias e documentação do projeto.
